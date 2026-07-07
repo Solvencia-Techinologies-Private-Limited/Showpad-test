@@ -4,7 +4,7 @@
         "type": "app-manifest",
         "version": 2
     },
-    "appKey": "<your-app-key>",
+    "appKey": "com.kasiraj.quickstart",
     "name": "Quickstart App",
     "version": "0.0.1",
     "description": {
@@ -12,8 +12,8 @@
         "full": "This App can be used as a template to start making your own App"
     },
     "developer": {
-        "name": "<your-developer-name>",
-        "websiteUrl": "<your-website-url>"
+        "name": "Kasi Raj",
+        "websiteUrl": "https://example.com"
     },
     "icon": "images/showpad-logo.jpg",
     "images": ["images/showpad-logo.jpg"],
