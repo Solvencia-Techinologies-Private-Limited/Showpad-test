@@ -1,11 +1,583 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin: 0;
+    min-height: 100vh;
+    background-color: #ffffff;
+    background-image: url('../ShowpadLoginpage.PNG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-#userGreetings {
-    margin-top: 64px;
+/* #app has no visual role of its own: it stays out of the body flex
+   layout so whichever page is rendered inside it (welcome panel, products
+   grid, placeholder page, ...) becomes the flex item directly, matching
+   how the markup was laid out before pages were split into modules. */
+#app {
+    display: contents;
+}
+
+.welcome-panel {
+    width: 100%;
+    max-width: 360px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    background-color: #f2f2f6;
+    padding: 24px 20px;
+}
+
+.welcome-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.welcome-section-label {
+    font-size: 13px;
+    color: #8e8e93;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.welcome-field {
+    background-color: #ffffff;
+    padding: 10px 12px;
+    margin-bottom: 1px;
+}
+
+.welcome-field--centered {
+    text-align: center;
+}
+
+.welcome-label {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.welcome-input,
+.welcome-country-select {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-family: inherit;
+    padding: 8px 10px;
+    border: 1px solid #d1d1d6;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.welcome-country-select {
+    width: auto;
+    color: #007aff;
+    border: none;
+    text-align: center;
+    font-weight: 400;
+    background: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Country picker popover (replicates the "CountrySelector" iOS popover) */
+
+.country-picker-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: transparent;
+}
+
+.country-picker-wrapper {
+    position: absolute;
+    width: 280px;
+}
+
+.country-picker-arrow {
+    position: absolute;
+    left: -6px;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+}
+
+.country-picker {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.country-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 10px 8px;
+    border-bottom: 1px solid #e5e5ea;
+}
+
+.country-picker-close,
+.country-picker-select {
+    flex: 0 0 auto;
+    max-width: 40%;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: #1c1c1e;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.country-picker-select {
+    background-color: #e5e5ea;
+    font-weight: 500;
+}
+
+.country-picker-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.country-picker-list {
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.country-picker-row {
+    padding: 13px 10px;
+    font-size: 16px;
+    color: #1c1c1e;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.country-picker-row--highlighted {
+    background-color: #f2f2f7;
+    font-weight: 600;
+}
+
+.welcome-error-message {
+    color: #d70015;
+    font-size: 13px;
+    padding: 8px 4px 0;
+}
+
+.welcome-success-message {
+    color: #1a7f37;
+    font-size: 13px;
+    padding: 8px 4px 0;
+}
+
+.welcome-get-started-button {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    background: none;
+    border: none;
+    color: #ff3b30;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.welcome-get-started-button:disabled {
+    color: #ffb3af;
+    cursor: not-allowed;
+}
+
+/* Products page */
+
+.products-page {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding: 32px;
+    overflow-y: auto;
+}
+
+.products-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 24px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid #e5e5ea;
+    border-radius: 16px;
+    background-color: #ffffff;
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #d1d1d6;
+}
+
+.product-card-image {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.product-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    color: #1c1c1e;
+}
+
+/* Product modal */
+
+.product-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+}
+
+.product-modal {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.12);
+    padding: 32px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background-color: #f2f2f7;
+    color: #1c1c1e;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.product-modal-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+}
+
+.product-modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    color: #1c1c1e;
+}
+
+.product-modal-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.product-modal-action {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #d1d1d6;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #1c1c1e;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.product-modal-action--primary {
+    background-color: #007aff;
+    border-color: #007aff;
+    color: #ffffff;
+}
+
+/* Contact Picker / First Fit placeholder pages */
+
+.product-placeholder-page {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.product-placeholder-back {
+    align-self: flex-start;
+    border: none;
+    background: none;
+    color: #007aff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.product-placeholder-heading {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.product-placeholder-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.product-placeholder-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.product-placeholder-description {
+    max-width: 420px;
+    color: #6e6e73;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* FitSet page */
+
+.fitset-page {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.fitset-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e5ea;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1;
+}
+
+.fitset-back-button {
+    flex: 0 0 auto;
+    border: none;
+    background: none;
+    color: #007aff;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.fitset-title {
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.fitset-selection-summary {
+    flex: 0 0 auto;
+    font-size: 15px;
+    color: #8e8e93;
+}
+
+.fitset-not-found {
+    padding: 24px;
+    color: #d70015;
+}
+
+.fitset-section {
+    margin-bottom: 24px;
+}
+
+.fitset-drawer-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, #c17a45, #a85f30);
+    color: #ffffff;
+}
+
+.fitset-drawer-icon {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    background-color: #0a1f44;
+    box-shadow: inset 0 0 0 3px #a85f30;
+}
+
+.fitset-drawer-label {
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.fitset-drawer-count {
+    flex: 0 0 auto;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.fitset-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+}
+
+.fitset-row {
+    display: grid;
+    align-items: center;
+    column-gap: 6px;
+    padding: 3px 0;
+}
+
+.fitset-header-row {
+    padding: 6px 0;
+}
+
+.fitset-column-header {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.fitset-axis-label {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.fitset-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 4px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background-color: #0a1f44;
+    color: #ffffff;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.fitset-card--empty {
+    visibility: hidden;
+    cursor: default;
+}
+
+.fitset-card--selected {
+    border-color: #34c759;
+    box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.4);
+}
+
+.fitset-card-power {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.fitset-card-material {
+    font-size: 9px;
+    color: #b7c2d6;
+}
+
+.fitset-full-row-banner {
+    text-align: center;
+    padding: 10px 0;
+    margin: 4px 0;
+    background-color: #c9c8f5;
+    color: #1c1c3d;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
 }
