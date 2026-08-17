@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "vite --force",
         "build": "tsc && vite build admin-settings && vite build user-settings && vite build experience",
-        "prebundle": "cp manifest.json dist && cp -r images dist",
+        "prebundle": "shx cp manifest.json dist &&  shx cp -r images dist",
         "bundle": "showpad apps bundle -s dist",
         "preview": "vite preview"
     },
@@ -16,6 +16,7 @@
         "@showpad/cli": "latest",
         "@typescript-eslint/eslint-plugin": "^6.20.0",
         "eslint": "^8.56.0",
+        "shx": "^0.4.0",
         "typescript": "^5.3.3",
         "vite": "^5.0.12"
     },

@@ -5,10 +5,10 @@
         "version": 2
     },
     "appKey": "com.kasiraj.firstcontact",
-"name": "Quickstart App",
-"version": "0.0.1",
+"name": "Fitset App",
+"version": "0.0.4",
 "description": {
-  "short": "The Quickstart App",
+  "short": "The fitset App",
   "full": "This App can be used as a template to start making your own App"
 },
 "developer": {

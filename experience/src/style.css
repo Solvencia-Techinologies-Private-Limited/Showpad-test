@@ -462,6 +462,25 @@ body {
     color: #8e8e93;
 }
 
+.fitset-camera-button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #f2f2f7;
+    color: #1c1c1e;
+    cursor: pointer;
+}
+
+.fitset-camera-button:hover {
+    background-color: #e5e5ea;
+}
+
 .fitset-not-found {
     padding: 24px;
     color: #d70015;
@@ -580,4 +599,122 @@ body {
     font-size: 16px;
     font-weight: 700;
     border-radius: 4px;
+}
+
+/* FitSet camera overlay */
+
+.fitset-camera-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+}
+
+.fitset-camera-video,
+.fitset-camera-captured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #000000;
+}
+
+.fitset-camera-close,
+.fitset-camera-switch {
+    position: absolute;
+    top: max(16px, env(safe-area-inset-top));
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #1c1c1e;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.fitset-camera-close {
+    right: max(16px, env(safe-area-inset-right));
+}
+
+.fitset-camera-switch {
+    left: max(16px, env(safe-area-inset-left));
+    font-size: 22px;
+}
+
+.fitset-camera-message {
+    position: absolute;
+    max-width: 320px;
+    padding: 16px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.fitset-camera-bottom-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px max(20px, env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.55));
+}
+
+.fitset-camera-capture {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+}
+
+.fitset-camera-capture::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transform: scale(0.82);
+}
+
+.fitset-camera-captured-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.fitset-camera-retake,
+.fitset-camera-use-photo {
+    flex: 1 1 0;
+    max-width: 200px;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.fitset-camera-retake {
+    border: 2px solid #ffffff;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.fitset-camera-use-photo {
+    border: none;
+    background-color: #34c759;
+    color: #ffffff;
 }
